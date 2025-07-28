@@ -1,0 +1,51 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Oct  9 10:53:06 2023
+
+@author: 500138
+"""
+
+We currently maintain a large excel spreadsheet (4 sheets and one sheet with over 10000 entries). Spreadsheets this large are cumbersome. In general a conventional database such as an sqlite database is considered a more robust repository for such tabular data. 
+
+I propose to create a sqlite database to replace the current excel spreadsheet. The resulting database will be searchable and easily modified/updated.
+
+IIn addition,  propose to create a script PIG (Python Interface Geodatabase) that can create/modify/update a database and also perform queries on that database.
+
+As a first pass in producing these scripts I've come up with a interface prototype.
+
+Here's a example usage statement:
+
+>>python PIG action input.db *kwargs
+
+The script is driven by a user provided action  and the database which it will act on. The *kwargs with be provided depending on the action.
+
+And a more specific example,
+
+>>python PIG create oceansys.db  oceansys.csv
+
+This would invoke the 'create' action who's output would be oceansys.db. If there was an existing database oceansys.db the script would add a table to the existing database. This would accomplish the create/modify capabilities of the script.
+
+Another example,
+
+>>PIG update oceansys.db sensor=clay status=inactive
+
+This would update the 'clay_sensor' to 'inactive' in the database oceansys.db.
+
+A simple query would be the following,
+
+>>python PIG query oceansys.db system Neptune output.csv
+
+This would query the oceansys.db for systems named Neptune and output the result to output.csv. 
+
+These statements are prototypes and may be changed as the process develops.
+
+Addendum: The sqlite database will prove useful in accessing the OOS data and in that sense it is an improvement over the excel spreadsheet. However the scripts created here are independent of the database they interact with. In the future the scripts could be adapted to work with the OOS database
+(ESRI gdb file). Hence, querying/modifying/updating the OOS database would remove some of  the reliance on the OOS viewer editor, which is hampered somewhat by ESRI pro overhead.  
+
+Estimated amount of time this would take approx. 150-200 man hours.
+______________
+
+That's what I'm thinking as of right now. Comments/suggestions?
+
+Cheers,
+Jim
